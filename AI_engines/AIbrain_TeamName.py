@@ -3,19 +3,22 @@ import random
 import numpy as np
 import copy
 import string
+from AI_engines.ShallowNNRandom import ShallowNNRandom
 
 class AIbrain_TeamName:
     def __init__(self):
         super().__init__()
         self.score = 0
         self.chars = string.ascii_letters + string.digits  # a-z, A-Z, 0-9
-        self.decider = 0
+        self.decider = ShallowNNRandom(n_inputs=9, n_hidden=10, n_outputs=4)
 
         self.init_param()
 
     def init_param(self):
-        self.w1 = np_random.rand(4)
-        self.w2 = np_random.rand(4)
+        self.w1 = self.decider.W1
+        self.w2 = self.decider.W2
+        self.b1 = self.decider.b1
+        self.b2 = self.decider.b2
         self.NAME ="Safr_"+''.join(random.choices(self.chars, k=5))
         self.store()
 
@@ -23,22 +26,22 @@ class AIbrain_TeamName:
         self.parameters = copy.deepcopy({
             'w1': self.w1,
             'w2': self.w2,
+            'b1': self.b1,
+            'b2': self.b2,
             "NAME": self.NAME,
         })
 
     def decide(self, data):
-        self.decider += 1
-        if np.round(self.decider) % 2 == 1:
-            return np.round(self.w1)
-        else:
-            return np.round(self.w2)
+        return self.decider.predict_proba(data)
 
     def mutate(self):
         if np_random.rand(1) < 0.5:
-            self.w1 = np.array([float(i+  (np.round(np_random.rand(1))-0.5)/4) for i in self.w1])
+            for i in self.w1:
+                i += (np.round(np_random.rand(1))-0.5)/4
             self.NAME += "_MUT_W1_"+''.join(random.choices(self.chars, k=3))
         else:
-            self.w2 = np.array([float(i+  (np.round(np_random.rand(1))-0.5)/4) for i in self.w2])
+            for i in self.w2:
+                i += (np.round(np_random.rand(1))-0.5)/4
             self.NAME += "_MUT_W2_"+''.join(random.choices(self.chars, k=3))
 
         self.store()
