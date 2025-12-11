@@ -29,3 +29,9 @@ Desktop.ini
 
 # Obecné
 *.log
+
+.python-version
+pyproject.toml
+uv.lock
+
+UserData/*

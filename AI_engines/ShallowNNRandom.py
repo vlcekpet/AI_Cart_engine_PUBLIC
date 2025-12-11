@@ -45,9 +45,9 @@ class ShallowNNRandom:
         Softmax po řádcích.
         z: shape (n_samples, n_outputs)
         """
-        z = z - np.max(z, axis=1, keepdims=True)  # numerická stabilita
+        z = z - np.max(z, keepdims=True)  # numerická stabilita
         exp_z = np.exp(z)
-        return exp_z / np.sum(exp_z, axis=1, keepdims=True)
+        return exp_z / np.sum(exp_z, keepdims=True)
 
     def forward(self, X):
         """
