@@ -32,6 +32,7 @@ class AIbrain_TeamName:
         })
 
     def decide(self, data):
+
         self.decider += 1
         if np.round(self.decider) % 2 == 1:
             return np.round(self.w1)

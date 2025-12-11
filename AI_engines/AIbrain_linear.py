@@ -13,11 +13,11 @@ class AIbrain_linear:
     def __init__(self):
         super().__init__()
         self.score = 0
-        self.chars = string.ascii_letters + string.digits  # a-z, A-Z, 0-9
+        self.chars = string.ascii_letters + string.digits  # pro potreby náhdných znaků
         self.decider = 0
-        self.x = 0
-        self.y = 0
-        self.speed = 0
+        self.x = 0 # sem se ulozí souradnice x, max HEIGHT*1.3
+        self.y = 0 # sem se ulozí souradnice y, max HEIGHT (800)
+        self.speed = 0 # sem se ukládá souradnice, max MAXSPEED ( 500)
 
         self.init_param()
 
